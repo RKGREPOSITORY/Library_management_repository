@@ -28,7 +28,7 @@
               </li>
             </ul>
             <span class="navbar-text">
-                <a id="loginbutton" href="Login.php">
+                <a id="loginbutton" href="login.php">
                 <span class="fa fa-sign-in fa-md"></span> Login/ Signup</a>
             </span>
           </div>
@@ -40,8 +40,8 @@
         <div class="container">
             <div class="row row-header">
                 <div class="col-12 col-sm-6">
-                    <h2>ONLINE LIBRARY MANAGEMENT SYSTEM (OLMS)</h2>
-                    <p></p>
+                    <h1>ONLINE LIBRARY MANAGEMENT SYSTEM (OLMS)</h1>
+                    <p>OLMS is concerned with all the activities involved in the management of any library materials and its members. This system guarantees efficiency & effectiveness in the managements of books. You must be a member inorder to experience full access to our system.</p>
                 </div>
                 <div class="col-12 col-sm align-self-center">
                     <img src="img/logo1.png" alt="logo" class="img-fluid" width="30%">

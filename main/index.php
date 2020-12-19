@@ -28,7 +28,7 @@
               </li>
             </ul>
             <span class="navbar-text">
-                <a id="loginbutton" href="Login.php">
+                <a id="loginbutton" href="login.php">
                 <span class="fa fa-sign-in fa-md"></span> Login/ Signup</a>
             </span>
           </div>
@@ -39,9 +39,9 @@
 
         <div class="container">
             <div class="row row-header">
-                <div class="col-12 col-sm-6">
-                    <h2>ONLINE LIBRARY MANAGEMENT SYSTEM (OLMS)</h2>
-                    <p></p>
+                <div class="col-12 col-sm-6" id="libpara">
+                    <h1>ONLINE LIBRARY MANAGEMENT SYSTEM (OLMS)</h1>
+                    <p>OLMS is concerned with all the activities involved in the management of any library materials and its members. This system guarantees efficiency & effectiveness in the managements of books. You must be a member inorder to experience full access to our system.</p>
                 </div>
                 <div class="col-12 col-sm align-self-center">
                     <img src="img/logo1.png" alt="logo" class="img-fluid" width="30%">
@@ -50,8 +50,76 @@
         </div>
 
     </header>
-    <!-- <div class="container" id="imas">Hello</div> -->
-<center><img src="img/bg.jpg" class="img-fluid" width="1280px"></center>
+
+    <div class="container">
+        <div class="row row-content d-none d-sm-block">
+            <div class="col">
+                <div id="mycarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <img class="d-block img-fluid" src="img/bg.jpg" alt="lib1" height="500px">
+                            
+                        </div>
+
+                        <div class="carousel-item">
+                            <img class="d-block img-fluid" src="img/1.jpg" alt="lib2">
+                    
+                        </div>
+
+                        <div class="carousel-item">
+                            <img class="d-block img-fluid" src="img/4.jpg" alt="lib3">
+                        </div>
+                    </div>
+
+                    <ol class="carousel-indicators">
+                        <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#mycarousel" data-slide-to="1"></li>
+                        <li data-target="#mycarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <a class="carousel-control-prev" href="#mycarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#mycarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                    <button class="btn btn-danger btn-sm" id="carouselButton">
+                        <span class="fa fa-pause"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row row-content align-items-center">
+            <div class="col-12 col-sm-4 order-sm-last col-md-3">
+                <h3>Our Online Library Management System</h3>
+            </div>
+            <div class="col col-sm order-sm-first col-md">
+                <div class="media">
+                    <img class="d-flex mr-3 img-thumbnail align-self-center" src="./img/icon.jpg" alt="icon" width="130px">
+                    <div class="media-body">
+                        <h2 class="mt-0">Our Portal <span class="badge badge-danger">NEW</span></h2>
+                        <p>OLMS is concerned with all the activities involved in the management of any library materials and its members. This system guarantees efficiency & effectiveness in the managements of books. You must be a member inorder to experience full access to our system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-content align-items-center">
+            <div class="col-12 col-sm-4 col-md-3">
+                <h3>Our Assistance</h3>
+            </div>
+            <div class="col col-sm col-md">
+                <div class="media">
+                    <div class="media-body">
+                        <h2 class="mt-0">24/7 Operational Support <span class="badge badge-danger">NEW</span></h2>
+                        <p>OLMS is always available 24/7 and provides a robust system that manages books in the library. We provide support through various means including on phone call and email to ensure you are always connected, up and running.</p>
+                    </div>
+                    <img class="d-flex ml-3 img-thumbnail align-self-center" src="img/24.jpg" alt="24/7" width="150px">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="row">             
