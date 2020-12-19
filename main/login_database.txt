@@ -1,0 +1,32 @@
+CREATE DATABASE library_management;
+GRANT ALL ON library_management.* TO 'rahul'@'localhost' IDENTIFIED BY 'pass';
+GRANT ALL ON library_management.* TO 'rahul'@'127.0.0.1' IDENTIFIED BY 'pass';
+
+USE misc; (If in the command line)
+
+CREATE TABLE users (
+  user_id INTEGER NOT NULL AUTO_INCREMENT,
+  name VARCHAR(128),
+  email VARCHAR(128),
+  password VARCHAR(128),
+  PRIMARY KEY(user_id),
+  INDEX(email)
+) ENGINE=InnoDB CHARSET=utf8;
+
+ALTER TABLE users ADD INDEX(email);
+ALTER TABLE users ADD INDEX(password);
+
+INSERT INTO users (name,email,password) 
+VALUES ('admin','admin@php','1a52e17fa899cf40fb04cfc42e6352f1');
+
+INSERT INTO users (name,email,password) 
+VALUES ('Rahul','rkg@gmail.com','1a52e17fa899cf40fb04cfc42e6352f1');
+
+INSERT INTO users (name,email,password) 
+VALUES ('Piyush','piyush@gmail.com','1a52e17fa899cf40fb04cfc42e6352f1');
+
+INSERT INTO users (name,email,password) 
+VALUES ('Prakriti','pro@gmail.com','1a52e17fa899cf40fb04cfc42e6352f1');
+
+INSERT INTO users (name,email,password) 
+VALUES ('Prince','pgupta@gmail.com','1a52e17fa899cf40fb04cfc42e6352f1');
