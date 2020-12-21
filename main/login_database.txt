@@ -2,8 +2,6 @@ CREATE DATABASE library_management;
 GRANT ALL ON library_management.* TO 'rahul'@'localhost' IDENTIFIED BY 'pass';
 GRANT ALL ON library_management.* TO 'rahul'@'127.0.0.1' IDENTIFIED BY 'pass';
 
-USE misc; (If in the command line)
-
 CREATE TABLE users (
   user_id INTEGER NOT NULL AUTO_INCREMENT,
   name VARCHAR(128),
