@@ -31,7 +31,7 @@ CREATE TABLE `members` (
 --
 
 CREATE TABLE `issue` (
-  `issue_id` int(3) NOT NULL,
+  `issue_id` int(3) NOT NULL AUTO_INCREMENT,
   `ISBN` int(4) NOT NULL,
   `member_id` int(3) NOT NULL,
   `issue_date` datetime NOT NULL,
