@@ -3,7 +3,7 @@
 --
 
 CREATE TABLE `books` (
-  `ISBN` int(4) NOT NULL KEY,
+  `ISBN` int(4) NOT NULL KEY AUTO_INCREMENT,
   `title` text NOT NULL,
   `author` varchar(50) NOT NULL,
   `price` float NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE `books` (
 --
 
 CREATE TABLE `members` (
-  `member_id` int(3) NOT NULL KEY,
+  `member_id` int(3) NOT NULL KEY AUTO_INCREMENT,
   `FirstName` varchar(10) NOT NULL,
   `LastName` varchar(10) NOT NULL,
   `Position` varchar(10) NOT NULL,
