@@ -63,9 +63,8 @@ if ( isset($_POST['email']) && isset($_POST["pass"]) ) {
 		    		flashMessages();
 				?>
 				<form method="POST">
-
-					<div class="form-group row">
-						<label for="nam" class="col-md-2 col-form-label">Username</label>
+                    <div class="form-group row ">
+						<label for="nam" class=" col-form-label col-md-2">Username</label>
 						<div class="col-md-10">
 							<input type="text" name="email" id="email" class="form-control">
 						</div>
@@ -94,6 +93,8 @@ if ( isset($_POST['email']) && isset($_POST["pass"]) ) {
 					<div class="form-group row">
 						<!-- <div class="offset-md-2 col-md-10"> -->
 							<input type="submit" onclick="return doValidate();" value="Log In">
+							
+							<a href="signup.php">SignUp</a>
 							<a href="index.php">Cancel</a>
 						<!-- </div> -->
 					</div>

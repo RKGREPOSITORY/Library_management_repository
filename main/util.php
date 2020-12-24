@@ -25,3 +25,25 @@
 		
     	return true;
 	}
+    function validatesignup() {
+        if((strlen($_POST['mob']) != 10)){
+            ?>
+            <script>
+                alert("KKK");
+            </script>
+              <?php
+        	   return "Mobile No should be of 10 Digits";
+		}
+        
+       $emailq = "SELECT Email FROM members";
+		$stn = $pdo->query($emailq);
+		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
+			if $ro['Email'] == $_POST['email']{
+				return "Email Id already Exists !!!"
+			}
+		}
+
+		
+    	return true;
+	}
+?>
