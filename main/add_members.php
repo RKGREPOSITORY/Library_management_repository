@@ -12,29 +12,33 @@ require_once "util.php";
         return;
     }
 
-    if ( isset($_POST['title']) && isset($_POST['author']) && isset($_POST['price']) && isset($_POST['publisher']) && isset($_POST['available'])) {
+    if ( isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['position']) && isset($_POST['gender']) && isset($_POST['mobile'])&& isset($_POST['email']) && isset($_POST['College'])&& isset($_POST['Address']) && isset($_POST['dob'])) {
 
-        $msg = validatebooks();
+        $email = $_POST['email'];
+        $msg = validatemembers($pdo);
 	    if (is_string($msg)){
             $_SESSION['error'] = $msg;
-            header("Location: add_books.php");
+            header("Location: add_members.php");
             return;
         }
 
-        $sql = "INSERT INTO books (title, author, price, publisher, description, available)
-                    VALUES (:ti, :au, :pr, :pu, :desc, :ava)";
+        $sql = "INSERT INTO members (FirstName, LastName, Position, Gender, Mobile, Email, College, Address, DOB)
+                    VALUES (:fn, :ln, :po, :ge, :mo, :em, :co, :ad, :dob)";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
-            ':ti' => $_POST['title'],
-            ':au' => $_POST['author'],
-            ':pr' => $_POST['price'],
-            ':pu' => $_POST['publisher'],
-            ':desc' => $_POST['description'],
-            ':ava' => $_POST['available'])
+            ':fn' => $_POST['fname'],
+            ':ln' => $_POST['lname'],
+            ':po' => $_POST['position'],
+            ':ge' => $_POST['gender'],
+            ':mo' => $_POST['mobile'],
+            ':em' => $_POST['email'],
+            ':co' => $_POST['College'],
+            ':ad' => $_POST['Address'],
+            ':dob' => $_POST['dob'])
         );
 
-        $_SESSION['success'] = "Book added";
+        $_SESSION['success'] = "Member added";
 		header("Location: library.php");
 		return;
     }
@@ -65,7 +69,7 @@ require_once "util.php";
               <li class="nav-item">
                 <a class="nav-link" href="search_books.php">Search Books</span></a>
               </li>
-              <li class="nav-item dropdown active">
+              <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		          Manage Books
 		        </a>
@@ -74,7 +78,7 @@ require_once "util.php";
 		          <a class="dropdown-item" href="remove_books.php">Remove Books</a>
 		          <a class="dropdown-item" href="renew_books.php">Renew Books</a>
 		      </li>
-		      <li class="nav-item dropdown">
+		      <li class="nav-item dropdown active">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		          Manage Members
 		        </a>
@@ -90,7 +94,7 @@ require_once "util.php";
           </div>
         </div>
     </nav>
-    <div class="container" id="add_books">
+    <div class="container" id="add_members">
         <div class="row row-content">
             <div class="col-12">
                 <h1>Add Books</h1>
@@ -101,44 +105,72 @@ require_once "util.php";
                 ?>
                 <form method="post">
                     <div class="form-group row">
-                        <label for="title" class="col-md-2 col-form-label">Title</label>
+                        <label for="fname" class="col-md-2 col-form-label">FirstName</label>
                         <div class="col-md-10">
-                            <input type="text" name="title" id="title" class="form-control">
+                            <input type="text" name="fname" id="fname" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="author" class="col-md-2 col-form-label">Author</label>
+                        <label for="lname" class="col-md-2 col-form-label">LastName</label>
                         <div class="col-md-10">
-                            <input type="text" name="author" id="author" class="form-control">
+                            <input type="text" name="lname" id="lname" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="price" class="col-md-2 col-form-label">Price</label>
+                        <label for="lname" class="col-md-2 col-form-label">Gender</label>
                         <div class="col-md-10">
-                            <input type="text" name="price" id="price" class="form-control">
+                            <select id="sex" name="gender" class="form-control">
+                            <option selected name ="gender">Gender</option>
+                            <option value = "Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Trans">Transgender</option>
+                    </select>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="form-group row">
+                        <label for="position" class="col-md-2 col-form-label">Position</label>
+                        <div class="col-md-10">
+                            <input type="text" name="position" id="position" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="publisher" class="col-md-2 col-form-label">Publisher</label>
+                        <label for="mobile" class="col-md-2 col-form-label">Mobile</label>
                         <div class="col-md-10">
-                            <input type="text" name="publisher" id="publisher" class="form-control">
+                            <input type="text" name="mobile" id="mobile" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="available" class="col-md-2 col-form-label">Copies available</label>
+                        <label for="email" class="col-md-2 col-form-label">email</label>
                         <div class="col-md-10">
-                            <input type="text" name="available" id="available" class="form-control">
+                            <input type="text" name="email" id="email" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="description" class="col-md-2 col-form-label">Description</label>
+                        <label for="dob" class="col-md-2 col-form-label">Date of Birth</label>
                         <div class="col-md-10">
-                            <textarea name="description" rows="5" cols="80" class="form-control"></textarea>
+                            <input type="date" name="dob" id="dob" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="College" class="col-md-2 col-form-label">College</label>
+                        <div class="col-md-10">
+                            <input type="text" name="College" id="College" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="Address" class="col-md-2 col-form-label">Address</label>
+                        <div class="col-md-10">
+                            <textarea name="Address" rows="5" cols="80" class="form-control"></textarea>
                         </div>
                     </div>
 

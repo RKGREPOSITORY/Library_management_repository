@@ -79,19 +79,6 @@ if ( isset($_POST['email']) && isset($_POST["pass"]) ) {
 					</div>
 
 					<div class="form-group row">
-						<div class="col-md-10">
-							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="librarian">
-							  <label class="form-check-label" for="inlineRadio1">Librarian</label>
-							</div>
-							<div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="member">
-							  <label class="form-check-label" for="inlineRadio2">Member</label>
-							 </div>
-						</div>
-					</div>
-
-					<div class="form-group row">
 						<!-- <div class="offset-md-2 col-md-10"> -->
 							<input type="submit" onclick="return doValidate();" value="Log In">
 							<a href="index.php">Cancel</a>

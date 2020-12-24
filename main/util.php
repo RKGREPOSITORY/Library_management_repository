@@ -14,14 +14,29 @@
 		}
 	}
 
+
 	function validatebooks() {
 		if (strlen($_POST['title']) < 1 || strlen($_POST['author']) < 1 ||strlen($_POST['price']) < 1 ||strlen($_POST['publisher']) < 1 ||strlen($_POST['description']) < 1  ||strlen($_POST['available']) < 1 ) {
         	return "All fields are required";
 		}
-
+		
 		if (is_float($_POST['price']) && is_numeric($_POST['available'])){
 			return "Price & available no must be float & numeric respectively";
 		}
 		
+    	return true;
+	}
+
+	function validatemembers($pdo) {
+		if (strlen($_POST['fname']) < 1 || strlen($_POST['lname']) < 1 ||strlen($_POST['position']) < 1 ||strlen($_POST['gender']) < 1 ||strlen($_POST['mobile']) < 1  ||strlen($_POST['email']) < 1 ||strlen($_POST['College']) < 1 ||strlen($_POST['Address']) < 1 ||strlen($_POST['dob']) < 1 ) {
+        	return "All fields are required";
+		}
+		$emailq = "SELECT Email FROM members";
+		$stn = $pdo->query($emailq);
+		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
+			if ($ro['Email'] == $_POST['email']){
+				return "Email Id already Exists !!!";
+			}
+		}
     	return true;
 	}
