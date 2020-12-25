@@ -31,6 +31,16 @@
 		if (strlen($_POST['fname']) < 1 || strlen($_POST['lname']) < 1 ||strlen($_POST['position']) < 1 ||strlen($_POST['gender']) < 1 ||strlen($_POST['mobile']) < 1  ||strlen($_POST['email']) < 1 ||strlen($_POST['College']) < 1 ||strlen($_POST['Address']) < 1 ||strlen($_POST['dob']) < 1 ) {
         	return "All fields are required";
 		}
+
+		if (strpos($_POST['email'], '@') == false){
+	        return 'Email must have an at-sign (@)';  
+		}
+		
+		if((strlen($_POST['mobile']) != 10)){
+
+			return "Mobile No should be of 10 Digits";
+		}
+
 		$emailq = "SELECT Email FROM members";
 		$stn = $pdo->query($emailq);
 		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
@@ -40,3 +50,35 @@
 		}
     	return true;
 	}
+
+	function validatesignup($pdo) {
+		if (strlen($_POST['fname']) < 1 || strlen($_POST['lname']) < 1 ||strlen($_POST['position']) < 1 ||strlen($_POST['gender']) < 1 ||strlen($_POST['mobile']) < 1  ||strlen($_POST['email']) < 1 ||strlen($_POST['College']) < 1 ||strlen($_POST['Address']) < 1 ||strlen($_POST['dob']) < 1 ) {
+        	return "All fields are required";
+		}
+
+		if (strpos($_POST['email'], '@') == false){
+	        return 'Email must have an at-sign (@)';  
+		}
+		
+		if((strlen($_POST['mobile']) != 10)){
+
+			return "Mobile No should be of 10 Digits";
+		}
+
+		$emailq = "SELECT Email FROM members";
+		$stn = $pdo->query($emailq);
+		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
+			if ($ro['Email'] == $_POST['email']){
+				return "Email Id already Exists !!!";
+			}
+		}
+		$emailr = "SELECT Email FROM pending_mem";
+		$stn = $pdo->query($emailq);
+		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
+			if ($ro['Email'] == $_POST['email']){
+				return "Email Id already Exists !!!";
+			}
+		}
+    	return true;
+	}
+	

@@ -1,28 +1,20 @@
-<?php 
-require_once "pdo.php";
-require_once "util.php";
-    session_start();
-    if ( ! isset($_SESSION['user_id'])) {
-    	die( '<img src= "./img/access.jpg">');
-    return;
-    }
-    
+<?php
+require_once 'pdo.php';
+require_once 'util.php';
+session_start();
     if ( isset($_POST['cancel']) ) {
-        header('Location: library.php');
+        header('Location:login.php');
         return;
     }
-
-    if ( isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['position']) && isset($_POST['gender']) && isset($_POST['mobile'])&& isset($_POST['email']) && isset($_POST['College'])&& isset($_POST['Address']) && isset($_POST['dob'])) {
-
-        $msg = validatemembers($pdo);
+    if( isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['position']) && isset($_POST['gender']) && isset($_POST['mobile'])&& isset($_POST['email']) && isset($_POST['College'])&& isset($_POST['Address']) && isset($_POST['dob'])){
+           $msg = validatesignup($pdo);
 	    if (is_string($msg)){
-            $_SESSION['error'] = $msg;
-            header("Location: add_members.php");
-            return;
+           $_SESSION['error'] = $msg;
+            header("Location: signup.php");
+                return;
         }
-
-        $sql = "INSERT INTO members (FirstName, LastName, Position, Gender, Mobile, Email, College, Address, DOB)
-                    VALUES (:fn, :ln, :po, :ge, :mo, :em, :co, :ad, :dob)";
+        $sql = "INSERT INTO pending_mem (FirstName, LastName, Position, Gender, Mobile, Email, College, Address,DOB)
+                    VALUES (:fn, :ln, :po,:ge,:mo,:em, :co, :ad, :dob)";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
@@ -36,9 +28,8 @@ require_once "util.php";
             ':ad' => $_POST['Address'],
             ':dob' => $_POST['dob'])
         );
-
-        $_SESSION['success'] = "Member added";
-		header("Location: library.php");
+        $_SESSION['success'] = "You Have Registered Successfully";
+		header("Location: login.php");
 		return;
     }
     
@@ -47,56 +38,17 @@ require_once "util.php";
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Add Members</title>
+	<title>Signup</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 	<?php require_once "head.php"; ?>
 </head>
 <body>
-	<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
-        <div class="container">
-          <a class="navbar-brand mr-auto" href="#"><img src="img/logo.jpg" height="30" width="41"></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Home</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="search_books.php">Search Books</span></a>
-              </li>
-              <li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          Manage Books
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="add_books.php">Add Books</a>
-		          <a class="dropdown-item" href="remove_books.php">Remove Books</a>
-		          <a class="dropdown-item" href="renew_books.php">Renew Books</a>
-		      </li>
-		      <li class="nav-item dropdown active">
-		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          Manage Members
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="add_members.php">Add Member</a>
-		          <a class="dropdown-item" href="remove_members.php">Remove Member</a>
-		          <a class="dropdown-item" href="view_members.php">View Member</a>
-		      </li>
-            </ul>
-            <span class="navbar-text">
-                <a id="loginbutton" href="logout.php">Logout</a>
-            </span>
-          </div>
-        </div>
-    </nav>
-    <div class="container" id="add_members">
+    <div class="container" id="signup">
         <div class="row row-content">
             <div class="col-12">
-                <h1>Add Member</h1>
+                <h1>Sign Up/ Register</h1>
             </div>
             <div class="col-12 col-md-6">
                 <?php 

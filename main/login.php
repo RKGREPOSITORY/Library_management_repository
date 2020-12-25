@@ -87,7 +87,7 @@ if ( isset($_POST['email']) && isset($_POST["pass"]) ) {
 				</form>
 				<p>
 			<!-- Username is 'admin@php' and password is 'php123' -->
-			<a href="index.php">Back to Home Page</a>
+			<a href="signup.php">New Here ? <br>Register Here !!!</a>
 		</p>
            </div>
 		</div>
