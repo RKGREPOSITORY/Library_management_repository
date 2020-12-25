@@ -1,0 +1,45 @@
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('C++ for Beginners', '	Piyush', 599, 'Piyush & Co.', 'Learn C++', 15);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Introduction to Java', 'Piyush Kumar Jha', 999, 'Piyush & Sons.', 'Learn Java', 50);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Software Engineering', 'Rajib Mall', 499, 'IIT KGP', 'Learn Software Engineering', 20);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Programming with Java', 'E Balagurusamy', 699, 'Mc Graw Hill', 'Learn OOP using Java', 30);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Computer Science with Python', 'Sumita Arora', 549, 'SIPO', 'Learn Python Language', 45);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Computer Science with C++', 'Sumita Arora', 499, 'Dhanpat Rai & Co.', 'Learn C++ Language', 50);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Compiler Principles, Techniques and Tools', 'Aho, Sethi, Ullman', 399, 'Pearson Education', 'Learn Compiler Design', 150);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Compiler Design in C', 'Holub', 399, 'PHI', 'Learn Compiler Design', 50);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Operating System Concepts Essentials', 'AviSilberschatz, Peter Galvin', 499, 'Wiley Asia Student Edition', 'Learn Operating System', 60);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Operating System Concepts', 'Ekta Walia', 499, 'Khanna Publishing House', 'Learn Operating System Concepts', 70);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Object Oriented Modelling and Design', 'Rambaugh, James Michael, Blaha', 699, 'Prentice Hall, India', 'Learn OOP Concepts', 60);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Introduction to Automata Theory Language and Computation', 'Hopcroft H.E. and Ullman J. D.', 399, 'Pearson education', 'Learn Automata', 50);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Formal Languages and Automata Theory', 'C.K.Nagpal', 499, 'Oxford', 'Learn Automata', 45);
+
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Computer Architecture and Parallel Processing', 'Kai Hwang and A.', 499, 'Brigggs International Edition, McGraw Hill', 'Learn Computer Architecture', 60);
+
+INSERT INTO books (title, author, price, publisher, description, available) 
+	VALUES ('Understanding the Linux Kernel', 'Daniel P. Bovet', 299, 'Marco Cesati, O'Reilly and Associates', 'Learn Linux', 60);
