@@ -1,17 +1,34 @@
 <?php 
-require_once "pdo.php";
-require_once "util.php";
+  require_once "pdo.php";
+  require_once "util.php";
     session_start();
     if ( ! isset($_SESSION['user_id'])) {
     	die( '<img src= "./img/access.jpg">');
     return;
-	}
-	 ?>
+    }
+    
+    if ( isset($_POST['cancel']) ) {
+      header('Location: search_books.php');
+      return;
+    }
+    if ( isset($_POST['ISBN']) && isset($_POST['member_id'])) {
+
+      $msg = validateissue($pdo);
+      if (is_string($msg)){
+        $_SESSION['error'] = $msg;
+        header('Location: issue_book.php?ISBN='.$_REQUEST['ISBN']);
+        return;
+    }
+      header('Location: issue_conf.php?ISBN='.$_REQUEST['ISBN'].'&member_id='.$_POST['member_id']);
+      return;
+    }
+    
+?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Library</title>
+	<title>Issue Books</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -26,11 +43,14 @@ require_once "util.php";
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home</span></a>
+              <li class="nav-item">
+                <a class="nav-link" href="library.php">Home</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="search_books.php">Search Books</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Issue Books</span></a>
               </li>
               <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,13 +76,42 @@ require_once "util.php";
             </span>
           </div>
         </div>
-  </nav>
-    <div class="container">
-    	<?php 
-            flashMessages();
-        ?>
-        <img src="./img/underconstruction.png" class="img-fluid">
+    </nav>
+    <div class="container" id="issue_books">
+        <div class="row row-content">
+            <div class="col-12">
+                <h1>Issue Books</h1>
+            </div>
+            <div class="col-12 col-md-6">
+                <?php 
+                    flashMessages();
+                ?>
+                <form method="post">
+                    <div class="form-group row">
+                        <label for="title" class="col-md-2 col-form-label">ISBN</label>
+                        <div class="col-md-10">
+                            <input type="text" name="ISBN" id="ISBN" class="form-control" value="<?= $_REQUEST['ISBN'] ?>" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="title" class="col-md-2 col-form-label">Member ID</label>
+                        <div class="col-md-10">
+                            <input type="text" name="member_id" id="member_id" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-10">
+                        <input class="btn btn-primary" type="submit" value="Search" name="issue">
+                        <input class="btn btn-secondary" type="submit" value="Cancel" name="cancel">
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
     </div>
-	<?php require_once "tail.php" ?>
+
+  <?php require_once "tail.php" ?>
 </body>
 </html>

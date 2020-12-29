@@ -1,12 +1,13 @@
 <?php 
-require_once "pdo.php";
-require_once "util.php";
+  require_once "pdo.php";
+  require_once "util.php";
     session_start();
     if ( ! isset($_SESSION['user_id'])) {
     	die( '<img src= "./img/access.jpg">');
     return;
-	}
-	 ?>
+    }
+    
+?>
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@ require_once "util.php";
 	<?php require_once "head.php"; ?>
 </head>
 <body>
-	<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
         <div class="container">
           <a class="navbar-brand mr-auto" href="#"><img src="img/logo.jpg" height="30" width="41"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,11 +27,11 @@ require_once "util.php";
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home</span></a>
-              </li>
               <li class="nav-item">
-                <a class="nav-link" href="search_books.php">Search Books</span></a>
+                <a class="nav-link" href="library.php">Home</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Search Books</span></a>
               </li>
               <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,13 +57,43 @@ require_once "util.php";
             </span>
           </div>
         </div>
-  </nav>
-    <div class="container">
-    	<?php 
-            flashMessages();
-        ?>
-        <img src="./img/underconstruction.png" class="img-fluid">
-    </div>
+    </nav>
+    <?php 
+    $sql = "SELECT * FROM members";
+    $stmt = $pdo->query($sql);
+        echo('<table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Member ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead><tbody>');
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo('<tr>
+                <th scope="row">');
+        echo(htmlentities($row['member_id']));
+        echo('</th><td>');
+        echo(htmlentities($row['FirstName']." ".$row['LastName']));
+        echo('</td><td>');
+        echo(htmlentities($row['Gender']));
+        echo('</td><td>');
+        echo(htmlentities($row['Email']));
+        echo('</td><td>');
+        echo(htmlentities($row['Mobile']));
+        echo('</td><td>');
+        echo('<a class="btn btn-success" href="view_profile.php?member_id='.$row['member_id'].'"role="button">View Profile</a>');
+        echo('</td><td>');
+        echo('<a class="btn btn-danger" href="delete_book.php?member_id='.$row['member_id'].'"role="button">Delete</a>');
+        echo('</td></tr>');
+    }
+    echo('</tbody><table>'); 
+
+  ?>
 	<?php require_once "tail.php" ?>
 </body>
 </html>

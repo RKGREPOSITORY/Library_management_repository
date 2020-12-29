@@ -29,7 +29,10 @@ session_start();
             ':dob' => $_POST['dob'])
         );
         $_SESSION['success'] = "You Have Registered Successfully";
-		header("Location: login.php");
+        echo '<script>alert("You Have Registered Successfully !!!");
+              window.location.replace("login.php");
+            </script>';
+		// header("Location: login.php");
 		return;
     }
     
@@ -127,8 +130,8 @@ session_start();
 
                     <div class="form-group row">
                         <div class="col-md-10">
-                        <input type="submit" value="Add">
-                        <input type="submit"value="Cancel" name="cancel">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-secondary" name="cancel">Cancel</button>
                     </div>
                     </div>
                 </form>

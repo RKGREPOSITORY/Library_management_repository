@@ -21,8 +21,8 @@ require_once "util.php";
             return;
         }
 
-        $sql = "INSERT INTO books (title, author, price, publisher, description, available)
-                    VALUES (:ti, :au, :pr, :pu, :desc, :ava)";
+        $sql = "INSERT INTO books (title, author, price, publisher, description, available, total)
+                    VALUES (:ti, :au, :pr, :pu, :desc, :ava, :ava)";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
@@ -35,7 +35,10 @@ require_once "util.php";
         );
 
         $_SESSION['success'] = "Book added";
-		header("Location: library.php");
+        echo '<script>alert("Book Added Successfully");
+              window.location.replace("library.php");
+            </script>';
+		// header("Location: library.php");
 		return;
     }
     
@@ -51,7 +54,7 @@ require_once "util.php";
 	<?php require_once "head.php"; ?>
 </head>
 <body>
-	<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
         <div class="container">
           <a class="navbar-brand mr-auto" href="#"><img src="img/logo.jpg" height="30" width="41"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +63,7 @@ require_once "util.php";
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Home</span></a>
+                <a class="nav-link" href="library.php">Home</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="search_books.php">Search Books</span></a>
@@ -70,7 +73,7 @@ require_once "util.php";
 		          Manage Books
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="add_books.php">Add Books</a>
+		          <a class="dropdown-item" href="#">Add Books</a>
 		          <a class="dropdown-item" href="remove_books.php">Remove Books</a>
 		          <a class="dropdown-item" href="renew_books.php">Renew Books</a>
 		      </li>
@@ -144,8 +147,8 @@ require_once "util.php";
 
                     <div class="form-group row">
                         <div class="col-md-10">
-                        <input type="submit" value="Add">
-                        <input type="submit"value="cancel" name="cancel">
+                        <input type="submit" class="btn btn-primary" value="Add">
+                        <input type="submit" class="btn btn-secondary" name="cancel" value="Cancel">
                     </div>
                     </div>
                 </form>

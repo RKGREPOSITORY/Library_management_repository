@@ -20,7 +20,7 @@
         	return "All fields are required";
 		}
 		
-		if (is_float($_POST['price']) && is_numeric($_POST['available'])){
+		if (!is_numeric($_POST['price']) || !is_numeric($_POST['available'])){
 			return "Price & available no must be float & numeric respectively";
 		}
 		
@@ -73,12 +73,49 @@
 			}
 		}
 		$emailr = "SELECT Email FROM pending_mem";
-		$stn = $pdo->query($emailq);
+		$stn = $pdo->query($emailr);
 		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
 			if ($ro['Email'] == $_POST['email']){
 				return "Email Id already Exists !!!";
 			}
 		}
     	return true;
+	}
+
+	function validateissue($pdo){
+		if(strlen($_POST['ISBN'])<1 || strlen($_POST['member_id']<1)){
+			return "All Fields are Required";
+		}
+
+		if(!is_numeric($_POST['ISBN']) || !is_numeric($_POST['member_id'])){
+			return "All Field should be numeric";
+		}
+
+		$stn = $pdo->prepare('SELECT * FROM members where member_id= :mid');
+		$stn->execute(array(':mid' => $_POST['member_id']));
+		$ro = $stn->fetch(PDO::FETCH_ASSOC);
+		if(empty($ro['Email'])){
+			return "Member ID not valid";
+		}
+
+		$iss = "SELECT ISBN, member_id FROM issue";
+		$stn = $pdo->query($iss);
+		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
+			if (($ro['ISBN'] == $_POST['ISBN'])&& ($ro['member_id'] == $_POST['member_id'])){
+				return "Book already issued to same user !!!";
+			}
+		}
+
+		return true;
+	}
+
+	function calBookavaibility($pdo, $ISBN) {
+		$stn = $pdo->prepare('SELECT available FROM books where ISBN= :ISBN');
+		$stn->execute(array(':ISBN' => $ISBN));
+		$ro = $stn->fetch(PDO::FETCH_ASSOC);
+
+		$avail = $ro['available'] - 1;
+
+		return $avail;
 	}
 	

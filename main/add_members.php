@@ -38,7 +38,10 @@ require_once "util.php";
         );
 
         $_SESSION['success'] = "Member added";
-		header("Location: library.php");
+        echo '<script>alert("Member Added Successfully");
+              window.location.replace("library.php");
+            </script>';
+		// header("Location: library.php");
 		return;
     }
     
@@ -54,7 +57,7 @@ require_once "util.php";
 	<?php require_once "head.php"; ?>
 </head>
 <body>
-	<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
         <div class="container">
           <a class="navbar-brand mr-auto" href="#"><img src="img/logo.jpg" height="30" width="41"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +66,7 @@ require_once "util.php";
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">Home</span></a>
+                <a class="nav-link" href="library.php">Home</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="search_books.php">Search Books</span></a>
@@ -82,7 +85,7 @@ require_once "util.php";
 		          Manage Members
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="add_members.php">Add Member</a>
+		          <a class="dropdown-item" href="#">Add Member</a>
 		          <a class="dropdown-item" href="remove_members.php">Remove Member</a>
 		          <a class="dropdown-item" href="view_members.php">View Member</a>
 		      </li>
@@ -92,7 +95,7 @@ require_once "util.php";
             </span>
           </div>
         </div>
-    </nav>
+  </nav>
     <div class="container" id="add_members">
         <div class="row row-content">
             <div class="col-12">
@@ -175,8 +178,10 @@ require_once "util.php";
 
                     <div class="form-group row">
                         <div class="col-md-10">
-                        <input type="submit" value="Add">
-                        <input type="submit"value="Cancel" name="cancel">
+                        <!-- <input type="submit" value="Add">
+                        <input type="submit"value="Cancel" name="cancel"> -->
+                        <input type="submit" class="btn btn-primary" value="Add">
+                        <input type="submit" class="btn btn-secondary" name="cancel" value="Cancel">
                     </div>
                     </div>
                 </form>
