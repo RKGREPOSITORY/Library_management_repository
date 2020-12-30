@@ -61,7 +61,57 @@
           </div>
         </div>
     </nav>
+    <div>
+    <form method="post">
+      <input type="text" name="search" placeholder="Search for Members">
+      <select  id = "se"name="se" value = "se">
+        <option value="FirstName" >Name</option>
+        <option value="Email">Email </option>
+        <option value="Mobile"> Mobile</option>
+        <option value="member_id">Id</option>
+      </select>
+      <input type="submit" value="search" name="submit">
+
+    </form>
+  </div>
     <?php 
+      if(isset($_POST['submit'])){
+      $val = $_POST['se'];
+      $searchq = $_POST['search'];
+      $qu = "SELECT * FROM members WHERE  $val LIKE '%$searchq%'";
+      $stmt = $pdo->query($qu);
+        echo('<table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Member ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead><tbody>');
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo('<tr>
+                <th scope="row">');
+        echo(htmlentities($row['member_id']));
+        echo('</th><td>');
+        echo(htmlentities($row['FirstName']." ".$row['LastName']));
+        echo('</td><td>');
+        echo(htmlentities($row['Gender']));
+        echo('</td><td>');
+        echo(htmlentities($row['Email']));
+        echo('</td><td>');
+        echo(htmlentities($row['Mobile']));
+        echo('</td><td>');
+        echo('<a class="btn btn-success" href="view_profile.php?member_id='.$row['member_id'].'"role="button">View Profile</a>');
+        echo('</td><td>');
+        echo('<a class="btn btn-danger" href="delete_book.php?member_id='.$row['member_id'].'"role="button">Delete</a>');
+        echo('</td></tr>');
+    }
+    echo('</tbody><table>'); 
+  }
     $sql = "SELECT * FROM members";
     $stmt = $pdo->query($sql);
         echo('<table class="table table-striped">
