@@ -58,7 +58,58 @@
           </div>
         </div>
   </nav>
+  <div>
+    <form method="post">
+      <input type="text" name="search" placeholder="Search for Books">
+      <select  id = "se"name="se" value = "se">
+        <option value="title" >Book Name</option>
+        <option value="author"> Author Name</option>
+        <option value="publisher"> Publisher</option>
+        <option value="ISBN"> ISBN</option>
+      </select>
+      <input type="submit" value="search" name="submit">
+
+    </form>
+  </div>
   <?php 
+    if(isset($_POST['submit'])){
+      $val = $_POST['se'];
+      $searchq = $_POST['search'];
+      $qu = "SELECT * FROM books WHERE  $val LIKE '%$searchq%'";
+      $stmt = $pdo->query($qu);
+        echo('<table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Publisher</th>
+                        <th scope="col">Available Copy</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead><tbody>');
+       while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo('<tr>
+                <th scope="row">');
+        echo(htmlentities($row['ISBN']));
+        echo('</th><td>');
+        echo(htmlentities($row['title']));
+        echo('</td><td>');
+        echo(htmlentities($row['author']));
+        echo('</td><td>');
+        echo(htmlentities($row['publisher']));
+        echo('</td><td>');
+        echo(htmlentities($row['available']));
+        echo('</td><td>');
+        echo('<a class="btn btn-success" href="issue_book.php?ISBN='.$row['ISBN'].'"role="button">Issue</a>');
+        echo('</td><td>');
+        echo('<a class="btn btn-danger" href="delete_book.php?ISBN='.$row['ISBN'].'"role="button">Delete</a>');
+        echo('</td></tr>');
+    }
+    echo('</tbody><table>'); 
+
+    }
     $sql = "SELECT * FROM books";
     $stmt = $pdo->query($sql);
         echo('<table class="table table-striped">
