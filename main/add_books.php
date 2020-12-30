@@ -83,7 +83,7 @@ require_once "util.php";
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		          <a class="dropdown-item" href="add_members.php">Add Member</a>
-		          <a class="dropdown-item" href="remove_members.php">Remove Member</a>
+		          <a class="dropdown-item" href="approve_members.php">Appove Member</a>
 		          <a class="dropdown-item" href="view_members.php">View Member</a>
 		      </li>
             </ul>

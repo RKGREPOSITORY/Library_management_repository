@@ -66,10 +66,10 @@ require_once "util.php";
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="library.php">Home</span></a>
+                <a class="nav-link" href="library.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="search_books.php">Search Books</span></a>
+                <a class="nav-link" href="search_books.php">Search Books</a>
               </li>
               <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,7 +86,7 @@ require_once "util.php";
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		          <a class="dropdown-item" href="#">Add Member</a>
-		          <a class="dropdown-item" href="remove_members.php">Remove Member</a>
+		          <a class="dropdown-item" href="approve_members.php">Approve Member</a>
 		          <a class="dropdown-item" href="view_members.php">View Member</a>
 		      </li>
             </ul>

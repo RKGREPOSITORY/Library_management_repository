@@ -34,7 +34,7 @@
                 <a class="nav-link" href="search_books.php">Search Books</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="#">View Members</a>
+                <a class="nav-link" href="#">Approve Members</a>
               </li>
               <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,12 +62,12 @@
         </div>
     </nav>
     <?php 
-    $sql = "SELECT * FROM members";
+    $sql = "SELECT * FROM pending_mem";
     $stmt = $pdo->query($sql);
         echo('<table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Member ID</th>
+                        <th scope="col">Request ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Gender</th>
                         <th scope="col">Email</th>
@@ -79,7 +79,7 @@
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         echo('<tr>
                 <th scope="row">');
-        echo(htmlentities($row['member_id']));
+        echo(htmlentities($row['request_id']));
         echo('</th><td>');
         echo(htmlentities($row['FirstName']." ".$row['LastName']));
         echo('</td><td>');
@@ -89,9 +89,9 @@
         echo('</td><td>');
         echo(htmlentities($row['Mobile']));
         echo('</td><td>');
-        echo('<a class="btn btn-success" href="view_profile.php?member_id='.$row['member_id'].'"role="button">View Profile</a>');
+        echo('<a class="btn btn-success" href="approve_conf.php?request_id='.$row['request_id'].'"role="button">Approve</a>');
         echo('</td><td>');
-        echo('<a class="btn btn-danger" href="delete_book.php?member_id='.$row['member_id'].'"role="button">Delete</a>');
+        echo('<a class="btn btn-danger" href="delete_book.php?request_id='.$row['request_id'].'"role="button">Deny</a>');
         echo('</td></tr>');
     }
     echo('</tbody><table>'); 
