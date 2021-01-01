@@ -16,6 +16,7 @@ session_start();
  <h1>Profile Information</h1>
 <?php 
 flashMessages();
+$arr = array();
 $stmt = $pdo->prepare("SELECT * FROM members  where member_id = :xyz");
 $stmt->execute(array(":xyz" => $_GET['member_id']));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -47,6 +48,7 @@ if(empty($row['issue_id']) === false){
             <th scope="col">Author</th>
             <th scope="col">Issue Date</th>
             <th scope="col">Return Date</th>
+            <th scope="col">Action</th>
         </tr>
     </thead><tbody>';
 		$i++;
@@ -57,6 +59,7 @@ if(empty($row['issue_id']) === false){
 echo '<tr>
         <th scope="row">';
 echo(htmlentities($row['issue_id']));
+array_push($arr, $row['issue_id']);
         echo('</th><td>');
         echo(htmlentities($row['title']));
         echo('</td><td>');
@@ -66,13 +69,40 @@ echo(htmlentities($row['issue_id']));
         echo('</td><td>');
         echo(htmlentities($row['return_date']));
         echo('</td><td>');
+        echo('<a class="btn btn-danger" href="return_book.php?issue_id='.$row['issue_id'].'"role="button">Return</a>');
+        echo('</td><td>');
 echo "</tr>";
 
 }
 echo('</tbody><table>'); 
+// echo'<a class="btn btn-danger" href="return_book.php?issue_id='.$arr[0].'"role="button">Return</a>';
+// echo'<a class="btn btn-danger" href="return_book.php?issue_id='.$arr[1].'"role="button">Return</a>';
+// print_r($arr);
+// print(count($arr));
+
+
 echo "</br></p>";
 
  ?>
+
+ <form method="POST">
+    <input type="submit" class="btn btn-success" name="renew" value="Renew All">
+ </form>
+
+ <?php 
+ print_r($arr);
+ // print(count($arr));
+ $i=0;
+ if (isset($_POST['renew'])){
+        for ($i=0; $i < count($arr); $i++) { 
+                # code...
+                echo($arr[$i]."\n");
+                renewBooks($pdo,$arr[$i]);
+        }
+        echo('<script>alert("Renew Successfully");
+      </script>');
+}
+  ?>
 <a href="view_members.php">Done</a>
  </div>
  <?php require_once "tail.php"; ?>

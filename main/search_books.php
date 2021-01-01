@@ -40,7 +40,7 @@
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		          <a class="dropdown-item" href="add_books.php">Add Books</a>
 		          <a class="dropdown-item" href="remove_books.php">Remove Books</a>
-		          <a class="dropdown-item" href="renew_books.php">Renew Books</a>
+		           
 		      </li>
 		      <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,18 +58,18 @@
           </div>
         </div>
   </nav>
-  <div>
-    <form method="post">
-      <input type="text" name="search" placeholder="Search for Books">
-      <select  id = "se"name="se" value = "se">
-        <option value="title" >Book Name</option>
-        <option value="author"> Author Name</option>
-        <option value="publisher"> Publisher</option>
-        <option value="ISBN"> ISBN</option>
-      </select>
-      <input type="submit" value="search" name="submit">
-
-    </form>
+  <div class=jumbotron>
+        <form method="post" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                  <input type="text" name="search" placeholder="Search for Books" class="form-control" >
+                  <select  id = "se"name="se" value = "se" class="form-control">
+                    <option value="title" >Book Name</option>
+                    <option value="author"> Author Name</option>
+                    <option value="publisher"> Publisher</option>
+                    <option value="ISBN"> ISBN</option>
+                  </select>
+                  <i class="fa fa-search" aria-hidden="true">
+                  <input type="submit" class="btn btn-primary" value="search" name="submit"></i>
+        </form>
   </div>
   <?php 
     if(isset($_POST['submit'])){

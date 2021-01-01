@@ -118,4 +118,15 @@
 
 		return $avail;
 	}
+
+	function renewBooks($pdo, $issue_id) {
+		$stmt = $pdo->prepare('UPDATE issue SET 
+									return_date = date_add(now(),INTERVAL 1 MONTH);
+									WHERE issue_id = :iid');
+		$stmt->execute(array(
+			':iid' => $issue_id
+		));
+
+		return true;
+	}
 	
