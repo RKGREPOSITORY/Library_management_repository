@@ -36,10 +36,10 @@ $stmt = $pdo->prepare('SELECT issue_id, title, author, issue_date, return_date F
 			where member_id = :abc');
 
 $stmt->execute(array(":abc" => $_GET['member_id']));
-$i = 0;
+$x = 0;
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 if(empty($row['issue_id']) === false){
-	if ($i<1) {
+	if ($x<1) {
         echo 'Issued Books :<br><table class="table">
         <thead>
         <tr>
@@ -51,7 +51,8 @@ if(empty($row['issue_id']) === false){
             <th scope="col">Action</th>
         </tr>
     </thead><tbody>';
-		$i++;
+                $x++;
+                
     }
     
 }
@@ -75,28 +76,18 @@ echo "</tr>";
 
 }
 echo('</tbody><table>'); 
-// echo'<a class="btn btn-danger" href="return_book.php?issue_id='.$arr[0].'"role="button">Return</a>';
-// echo'<a class="btn btn-danger" href="return_book.php?issue_id='.$arr[1].'"role="button">Return</a>';
-// print_r($arr);
-// print(count($arr));
 
 
 echo "</br></p>";
 
- ?>
+if ($x != 0) {
+ echo('<form method="POST">
+        <input type="submit" class="btn btn-success" name="renew" value="Renew All">
+        </form>');
+}
 
- <form method="POST">
-    <input type="submit" class="btn btn-success" name="renew" value="Renew All">
- </form>
-
- <?php 
- print_r($arr);
- // print(count($arr));
- $i=0;
  if (isset($_POST['renew'])){
-        for ($i=0; $i < count($arr); $i++) { 
-                # code...
-                echo($arr[$i]."\n");
+        for ($i=0; $i < count($arr); $i++) {
                 renewBooks($pdo,$arr[$i]);
         }
         echo('<script>alert("Renew Successfully");
