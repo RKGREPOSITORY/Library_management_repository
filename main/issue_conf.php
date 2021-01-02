@@ -93,7 +93,7 @@
             </span>
           </div>
         </div>
-    </nav>
+  </nav>
     <div class="container" id="issue_conf">
         <div class="row row-content">
             <div class="col-12">
