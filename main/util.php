@@ -27,6 +27,13 @@
     	return true;
 	}
 
+	function validate_edit_books() {
+		if (strlen($_POST['title']) < 1 || strlen($_POST['author']) < 1 ||strlen($_POST['price']) < 1 ||strlen($_POST['publisher']) < 1 ||strlen($_POST['description']) < 1) {
+        	return "All fields are required";
+		}		
+    	return true;
+	}
+
 	function validatemembers($pdo) {
 		if (strlen($_POST['fname']) < 1 || strlen($_POST['lname']) < 1 ||strlen($_POST['position']) < 1 ||strlen($_POST['gender']) < 1 ||strlen($_POST['mobile']) < 1  ||strlen($_POST['email']) < 1 ||strlen($_POST['College']) < 1 ||strlen($_POST['Address']) < 1 ||strlen($_POST['dob']) < 1 ) {
         	return "All fields are required";
@@ -47,6 +54,22 @@
 			if ($ro['Email'] == $_POST['email']){
 				return "Email Id already Exists !!!";
 			}
+		}
+    	return true;
+	}
+
+	function validate_edit_members() {
+		if (strlen($_POST['fname']) < 1 || strlen($_POST['lname']) < 1 ||strlen($_POST['position']) < 1 ||strlen($_POST['gender']) < 1 ||strlen($_POST['mobile']) < 1  ||strlen($_POST['email']) < 1 ||strlen($_POST['College']) < 1 ||strlen($_POST['Address']) < 1 ||strlen($_POST['dob']) < 1 ) {
+        	return "All fields are required";
+		}
+
+		if (strpos($_POST['email'], '@') == false){
+	        return 'Email must have an at-sign (@)';  
+		}
+		
+		if((strlen($_POST['mobile']) != 10)){
+
+			return "Mobile No should be of 10 Digits";
 		}
     	return true;
 	}

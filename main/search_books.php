@@ -58,7 +58,7 @@
           </div>
         </div>
   </nav>
-  <div class=jumbotron>
+  <div class="jumbotron">
         <form method="post" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
                   <input type="text" name="search" placeholder="Search for Books" class="form-control" >
                   <select  id = "se"name="se" value = "se" class="form-control">
@@ -67,8 +67,7 @@
                     <option value="publisher"> Publisher</option>
                     <option value="ISBN"> ISBN</option>
                   </select>
-                  <i class="fa fa-search" aria-hidden="true">
-                  <input type="submit" class="btn btn-primary" value="search" name="submit"></i>
+                  <input type="submit" class="btn btn-primary" value="Search" name="submit"></i>
         </form>
   </div>
   <?php 
@@ -77,6 +76,7 @@
       $searchq = $_POST['search'];
       $qu = "SELECT * FROM books WHERE  $val LIKE '%$searchq%'";
       $stmt = $pdo->query($qu);
+      echo ("<h4>Search result for : '".$searchq."' in '".$val."' </h4>");
         echo('<table class="table table-striped">
                 <thead>
                     <tr>
@@ -85,6 +85,7 @@
                         <th scope="col">Author</th>
                         <th scope="col">Publisher</th>
                         <th scope="col">Available Copy</th>
+                        <th scope="col">Action</th>
                         <th scope="col">Action</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -104,10 +105,12 @@
         echo('</td><td>');
         echo('<a class="btn btn-success" href="issue_book.php?ISBN='.$row['ISBN'].'"role="button">Issue</a>');
         echo('</td><td>');
+        echo('<a class="btn btn-primary" href="edit_book.php?ISBN='.$row['ISBN'].'"role="button">Edit</a>');
+        echo('</td><td>');
         echo('<a class="btn btn-danger" href="delete_book.php?ISBN='.$row['ISBN'].'"role="button">Delete</a>');
         echo('</td></tr>');
     }
-    echo('</tbody><table>'); 
+    echo('</tbody></table>'); 
 
     }
     $sql = "SELECT * FROM books";
@@ -120,6 +123,7 @@
                         <th scope="col">Author</th>
                         <th scope="col">Publisher</th>
                         <th scope="col">Available Copy</th>
+                        <th scope="col">Action</th>
                         <th scope="col">Action</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -138,6 +142,8 @@
         echo(htmlentities($row['available']));
         echo('</td><td>');
         echo('<a class="btn btn-success" href="issue_book.php?ISBN='.$row['ISBN'].'"role="button">Issue</a>');
+        echo('</td><td>');
+        echo('<a class="btn btn-primary" href="edit_book.php?ISBN='.$row['ISBN'].'"role="button">Edit</a>');
         echo('</td><td>');
         echo('<a class="btn btn-danger" href="delete_book.php?ISBN='.$row['ISBN'].'"role="button">Delete</a>');
         echo('</td></tr>');

@@ -61,16 +61,16 @@
           </div>
         </div>
     </nav>
-    <div>
-    <form method="post">
-      <input type="text" name="search" placeholder="Search for Members">
-      <select  id = "se"name="se" value = "se">
+    <div class="jumbotron">
+    <form method="post"class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+      <input type="text" name="search" placeholder="Search for Members" class="form-control">
+      <select  id = "se"name="se" value = "se" class="form-control">
         <option value="FirstName" >Name</option>
         <option value="Email">Email </option>
         <option value="Mobile"> Mobile</option>
         <option value="member_id">Id</option>
       </select>
-      <input type="submit" value="search" name="submit">
+      <input type="submit" class="btn btn-primary" value="Search" name="submit">
 
     </form>
   </div>
@@ -80,6 +80,7 @@
       $searchq = $_POST['search'];
       $qu = "SELECT * FROM members WHERE  $val LIKE '%$searchq%'";
       $stmt = $pdo->query($qu);
+      echo ("<h4>Search result for : '".$searchq."' in '".$val."' </h4>");
         echo('<table class="table table-striped">
                 <thead>
                     <tr>
@@ -88,6 +89,7 @@
                         <th scope="col">Gender</th>
                         <th scope="col">Email</th>
                         <th scope="col">Mobile</th>
+                        <th scope="col">Action</th>
                         <th scope="col">Action</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -107,10 +109,12 @@
         echo('</td><td>');
         echo('<a class="btn btn-success" href="view_profile.php?member_id='.$row['member_id'].'"role="button">View Profile</a>');
         echo('</td><td>');
-        echo('<a class="btn btn-danger" href="delete_book.php?member_id='.$row['member_id'].'"role="button">Delete</a>');
+        echo('<a class="btn btn-primary" href="edit_member.php?member_id='.$row['member_id'].'"role="button">Edit</a>');
+        echo('</td><td>');
+        echo('<a class="btn btn-danger" href="delete_member.php?member_id='.$row['member_id'].'"role="button">Delete</a>');
         echo('</td></tr>');
     }
-    echo('</tbody><table>'); 
+    echo('</tbody></table>'); 
   }
     $sql = "SELECT * FROM members";
     $stmt = $pdo->query($sql);
@@ -124,6 +128,7 @@
                         <th scope="col">Mobile</th>
                         <th scope="col">Action</th>
                         <th scope="col">Action</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead><tbody>');
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -141,10 +146,12 @@
         echo('</td><td>');
         echo('<a class="btn btn-success" href="view_profile.php?member_id='.$row['member_id'].'"role="button">View Profile</a>');
         echo('</td><td>');
-        echo('<a class="btn btn-danger" href="delete_book.php?member_id='.$row['member_id'].'"role="button">Delete</a>');
+        echo('<a class="btn btn-primary" href="edit_member.php?member_id='.$row['member_id'].'"role="button">Edit</a>');
+        echo('</td><td>');
+        echo('<a class="btn btn-danger" href="delete_member.php?member_id='.$row['member_id'].'"role="button">Delete</a>');
         echo('</td></tr>');
     }
-    echo('</tbody><table>'); 
+    echo('</tbody></table>'); 
 
   ?>
 	<?php require_once "tail.php" ?>
