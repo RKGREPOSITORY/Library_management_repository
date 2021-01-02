@@ -33,15 +33,9 @@
               <li class="nav-item active">
                 <a class="nav-link" href="#">Search Books</a>
               </li>
-              <li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          Manage Books
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="add_books.php">Add Books</a>
-		          <a class="dropdown-item" href="remove_books.php">Remove Books</a>
-		           
-		      </li>
+              <li class="nav-item">
+                <a class="nav-link" href="add_books.php">Add Books</a>
+              </li>
 		      <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		          Manage Members
