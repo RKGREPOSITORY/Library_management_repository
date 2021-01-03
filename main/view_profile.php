@@ -101,18 +101,27 @@ if ($day>0) {
      echo('<form method="POST">
          <input type="checkbox" id="c" name="c" value="Collected">
         <label for="c"> I have  Collected the Fine</label><br>
-        <input type="submit" class="btn btn-success" name="pay" value="payfine">
+        <input type="submit" class="btn btn-primary" name="pay" value="payfine">
         </form>');
  }
 
 if(isset($_POST['pay'])){
-      echo('<script>alert("Fine Paid Please Refresh The Page");
+    $sql = "INSERT INTO fine(member_id, user_id, amount, date)
+                VALUES (:mid, :uid, :am, now())";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array(
+          ':mid' => $_GET['member_id'],
+          ':uid' => $_SESSION['user_id'],
+          ':am' => $day
+    ));
+    
+      echo('<script>alert("Fine Paid !!!");
       </script>');
       for ($i=0; $i < count($arr); $i++) {
                 renewBooks($pdo,$arr[$i]);
         }
     $day = 0;
-    // header("Location: view_members.php");
+    header("Location: view_profile.php?member_id=".$_GET['member_id']);
 }
 echo "</br></p>";
 if ($x != 0) {
@@ -141,27 +150,3 @@ if ($x != 0) {
  <?php require_once "tail.php"; ?>
  </body>
  </html>
-
- <!--
-    if($day>0){
-     echo('<form method="POST">
-        <label for="fname">First name:</label>
-        <input type="text" id="fname" name="fname" value="');
-        echo (htmlentities($mid));
-
-        echo('"><br><br>
-        <label for="lemail">Email:</label>
-        <input type="text" id="lemail" name="lemail" value="');
-        echo(htmlentities($em));
-        echo('"><br><br>
-        <label for="aemail"> Admin Email:</label>
-        <input type="text" id="aemail" name="aemail" required><br>
-        <input type="checkbox" id="c" name="c" value="Collected">
-        <label for="c"> I have  Collected the Fine</label><br>
-        <input type="submit" class="btn btn-success" name="pay" value="Pay Fine">
-        </form>
-        <script>alert(" Fine Paid  ");
-      </script>' );
-
-}
--->
