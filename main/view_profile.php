@@ -30,13 +30,18 @@ echo '</p><p>Email:  '.$row['Email'];
 echo '</p><p>College:  '.$row['College'];
 echo '</p><p>Address: '.$row['Address'];
 echo "</p><p>";
-
+$mid = $row['member_id'];
+$em = $row['Email'];
 $stmt = $pdo->prepare('SELECT issue_id, title, author, issue_date, return_date FROM books JOIN issue
 			ON books.ISBN = issue.ISBN
 			where member_id = :abc');
 
 $stmt->execute(array(":abc" => $_GET['member_id']));
+
 $x = 0;
+$count = 0;
+$issued;
+$day = 0;
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 if(empty($row['issue_id']) === false){
 	if ($x<1) {
@@ -56,6 +61,14 @@ if(empty($row['issue_id']) === false){
     }
     
 }
+$returnd = $row['return_date'];
+$fined =  date("Y-m-d");
+  $fined = substr($fined,0,10);
+    $returnd = substr($returnd,0,10);
+    $diff = strtotime($fined) - strtotime($returnd);
+    if($diff > 0){
+         $day+= ceil(abs($diff / 86400));
+    }
 
 echo '<tr>
         <th scope="row">';
@@ -77,21 +90,50 @@ echo "</tr>";
 }
 echo('</tbody><table>'); 
 
+if($x != 0){
+    echo "<h1> Fine = ";
+    echo (htmlentities($day));
+    echo("</h1>");
 
+}
+if ($day>0) {
+    # code
+     echo('<form method="POST">
+         <input type="checkbox" id="c" name="c" value="Collected">
+        <label for="c"> I have  Collected the Fine</label><br>
+        <input type="submit" class="btn btn-success" name="pay" value="payfine">
+        </form>');
+ }
+
+if(isset($_POST['pay'])){
+      echo('<script>alert("Fine Paid Please Refresh The Page");
+      </script>');
+      for ($i=0; $i < count($arr); $i++) {
+                renewBooks($pdo,$arr[$i]);
+        }
+    $day = 0;
+    // header("Location: view_members.php");
+}
 echo "</br></p>";
-
 if ($x != 0) {
  echo('<form method="POST">
         <input type="submit" class="btn btn-success" name="renew" value="Renew All">
         </form>');
 }
 
+
  if (isset($_POST['renew'])){
+        if($day > 0){
+            echo('<script>alert("Pay Fine ");
+      </script>');
+        }
+        else{
         for ($i=0; $i < count($arr); $i++) {
                 renewBooks($pdo,$arr[$i]);
         }
         echo('<script>alert("Renew Successfully");
       </script>');
+    }
 }
   ?>
 <a href="view_members.php">Done</a>
@@ -99,3 +141,27 @@ if ($x != 0) {
  <?php require_once "tail.php"; ?>
  </body>
  </html>
+
+ <!--
+    if($day>0){
+     echo('<form method="POST">
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname" value="');
+        echo (htmlentities($mid));
+
+        echo('"><br><br>
+        <label for="lemail">Email:</label>
+        <input type="text" id="lemail" name="lemail" value="');
+        echo(htmlentities($em));
+        echo('"><br><br>
+        <label for="aemail"> Admin Email:</label>
+        <input type="text" id="aemail" name="aemail" required><br>
+        <input type="checkbox" id="c" name="c" value="Collected">
+        <label for="c"> I have  Collected the Fine</label><br>
+        <input type="submit" class="btn btn-success" name="pay" value="Pay Fine">
+        </form>
+        <script>alert(" Fine Paid  ");
+      </script>' );
+
+}
+-->
