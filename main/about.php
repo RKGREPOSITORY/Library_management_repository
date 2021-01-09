@@ -50,8 +50,18 @@
         </div>
 
     </header>
-    <!-- <div class="container" id="imas">Hello</div> -->
-<center><img src="img/underconstruction.png" class="img-fluid" width="1280px"></center>
+    <div class="container">
+    <div class="row">
+            <ol class="col-12 breadcrumb">
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item active">About Us</li>
+            </ol>
+            <div class="col-12">
+               <h3>About Us</h3>
+               <hr>
+            </div>
+        </div>
+    </div>
 
 
     <footer class="footer">

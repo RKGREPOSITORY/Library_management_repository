@@ -106,25 +106,11 @@
 	}
 
 	function validateissue($pdo){
-		if(strlen($_POST['ISBN'])<1 || strlen($_POST['member_id']<1)){
-			return "All Fields are Required";
-		}
-
-		if(!is_numeric($_POST['ISBN']) || !is_numeric($_POST['member_id'])){
-			return "All Field should be numeric";
-		}
-
-		$stn = $pdo->prepare('SELECT * FROM members where member_id= :mid');
-		$stn->execute(array(':mid' => $_POST['member_id']));
-		$ro = $stn->fetch(PDO::FETCH_ASSOC);
-		if(empty($ro['Email'])){
-			return "Member ID not valid";
-		}
 
 		$iss = "SELECT ISBN, member_id FROM issue";
 		$stn = $pdo->query($iss);
 		while($ro = $stn->fetch(PDO::FETCH_ASSOC)){
-			if (($ro['ISBN'] == $_POST['ISBN'])&& ($ro['member_id'] == $_POST['member_id'])){
+			if (($ro['ISBN'] == $_GET['ISBN'])&& ($ro['member_id'] == $_POST['member_id'])){
 				return "Book already issued to same user !!!";
 			}
 		}

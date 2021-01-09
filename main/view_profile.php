@@ -13,6 +13,8 @@ session_start();
  </head>
  <body>
  <div class="container">
+ <div class="row row-content">
+            <div class="col-12">
  <h1>Profile Information</h1>
 <?php 
 flashMessages();
@@ -29,7 +31,7 @@ echo '</p><p>Mobile: '.$row['Mobile'];
 echo '</p><p>Email:  '.$row['Email'];
 echo '</p><p>College:  '.$row['College'];
 echo '</p><p>Address: '.$row['Address'];
-echo "</p><p>";
+echo "</p><p></div></div>";
 $mid = $row['member_id'];
 $em = $row['Email'];
 $stmt = $pdo->prepare('SELECT issue_id, title, author, issue_date, return_date FROM books JOIN issue

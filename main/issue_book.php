@@ -3,7 +3,7 @@
   require_once "util.php";
     session_start();
     if ( ! isset($_SESSION['user_id'])) {
-    	die( '<img src= "./img/access.jpg">');
+    	die( '<img src= "./img/access.jpg">'); 
     return;
     }
     
@@ -11,16 +11,19 @@
       header('Location: search_books.php');
       return;
     }
-    if ( isset($_POST['ISBN']) && isset($_POST['member_id'])) {
-
+    if ( isset($_POST['member_id']) && isset($_POST['issue'])) {
+      
       $msg = validateissue($pdo);
       if (is_string($msg)){
         $_SESSION['error'] = $msg;
-        header('Location: issue_book.php?ISBN='.$_REQUEST['ISBN']);
-        return;
-    }
-      header('Location: issue_conf.php?ISBN='.$_REQUEST['ISBN'].'&member_id='.$_POST['member_id']);
+        echo '<script>alert("Book Already alloted to same member");
+        window.location.replace("issue_book.php?ISBN='.$_REQUEST['ISBN'].'");
+            </script>';
+        // header('Location: issue_book.php?ISBN='.$_REQUEST['ISBN']);
+      }else {
+        header('Location: issue_conf.php?ISBN='.$_REQUEST['ISBN'].'&member_id='.$_POST['member_id']);
       return;
+      }
     }
     
 ?>
@@ -70,7 +73,7 @@
             </span>
           </div>
         </div>
-    </nav>
+  </nav>
     <div class="container" id="issue_books">
         <div class="row row-content">
             <div class="col-12">
@@ -79,30 +82,68 @@
             <div class="col-12 col-md-6">
                 <?php 
                     flashMessages();
+                    //Book Details display
+                    $stmt = $pdo->prepare("SELECT * FROM books where ISBN = :xyz");
+                    $stmt->execute(array(":xyz" =>$_GET['ISBN']));
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    echo '<h5><b>Book Details</b></h5>';
+                    echo '<p>Title : '.$row['title'];
+                    echo '</p><p>Author : '.$row['author'];
+                    echo '</p><p>Price : '.$row['price'];
+                    echo '</p><p>Publisher : '.$row['publisher'];
+                    echo '</p><p>Description : '.$row['description'];
+                    echo "</p><p></div>";
                 ?>
-                <form method="post">
-                    <div class="form-group row">
-                        <label for="title" class="col-md-2 col-form-label">ISBN</label>
-                        <div class="col-md-10">
-                            <input type="text" name="ISBN" id="ISBN" class="form-control" value="<?= $_REQUEST['ISBN'] ?>" required/>
-                        </div>
-                    </div>
+                <form method="post"class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                  <input type="text" name="search" placeholder="Search for Members" class="form-control">
+                  <select  id = "se"name="se" value = "se" class="form-control">
+                    <option value="FirstName" >Name</option>
+                    <option value="Email">Email </option>
+                    <option value="Mobile"> Mobile</option>
+                    <option value="member_id">Id</option>
+                  </select>
+                  <input type="submit" class="btn btn-primary" value="Search" name="submit">
 
-                    <div class="form-group row">
-                        <label for="title" class="col-md-2 col-form-label">Member ID</label>
-                        <div class="col-md-10">
-                            <input type="text" name="member_id" id="member_id" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-md-10">
-                        <input class="btn btn-primary" type="submit" value="Search" name="issue">
-                        <input class="btn btn-secondary" type="submit" value="Cancel" name="cancel">
-                    </div>
-                    
                 </form>
-            </div>
+            
+      <?php 
+      if(isset($_POST['submit'])){
+      $val = $_POST['se'];
+      $searchq = $_POST['search'];
+      $qu = "SELECT * FROM members WHERE  $val LIKE '%$searchq%'";
+      $stmt = $pdo->query($qu);
+      echo ("<h4>Search result for : '".$searchq."' in '".$val."' </h4>");
+        echo('<table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Member ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead><tbody>');
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo('<tr>
+                <th scope="row">');
+        echo(htmlentities($row['member_id']));
+        echo('</th><td>');
+        echo(htmlentities($row['FirstName']." ".$row['LastName']));
+        echo('</td><td>');
+        echo(htmlentities($row['Gender']));
+        echo('</td><td>');
+        echo(htmlentities($row['Email']));
+        echo('</td><td>');
+        echo(htmlentities($row['Mobile']));
+        echo('</td><td><form method="post">');
+        echo('<input type="hidden" name="member_id" value="'.$row['member_id'].'">');
+        echo('<input type="submit" class="btn btn-success" name="issue" value="Issue">');
+        echo('</form></td></tr>');
+    }
+    echo('</tbody></table>'); 
+  }
+  ?>
         </div>
     </div>
 
